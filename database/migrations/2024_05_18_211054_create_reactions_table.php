@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('reactions', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('comment_id')->constrained()->onDelete('cascade');
+            $table->enum('reaction', ['like', 'love', 'wow', 'sad', 'angry']);
             $table->timestamps();
         });
     }
