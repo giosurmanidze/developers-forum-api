@@ -11,3 +11,4 @@ Route::get('/user', function (Request $request) {
 
  
 Route::get('/topics', [TopicController::class, 'index']);
+Route::get('/topics/{id}', [TopicController::class, 'show']);

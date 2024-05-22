@@ -11,4 +11,9 @@ class TopicRepository implements TopicRepositoryInterface
     {
         return Topic::all();
     }
+
+    public function getById($id): ?Topic
+    {
+        return Topic::findOrFail($id);
+    }
 }
