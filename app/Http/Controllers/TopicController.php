@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Classes\ApiResponseClass;
 use App\Contracts\TopicRepositoryInterface;
 use App\Http\Requests\StoreTopicRequest;
 use App\Http\Requests\UpdateTopicRequest;
@@ -9,6 +10,7 @@ use App\Http\Resources\TopicResourse;
 use App\Models\Topic;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Http\Response;
 
 class TopicController extends Controller
 {
@@ -38,7 +40,9 @@ class TopicController extends Controller
         $validatedData = $request->validated();
         $storedTopic = $this->topicRepository->store($validatedData);
 
-        return $storedTopic;
+        return ApiResponseClass::sendResponse(
+            new TopicResourse($storedTopic), 'Topic added successfully',201
+        );
     }
 
     public function update(UpdateTopicRequest $request, Topic $topic)
@@ -46,6 +50,8 @@ class TopicController extends Controller
         $validatedData = $request->validated();
         $updatedTopic = $this->topicRepository->update($validatedData, $topic);
 
-        return $updatedTopic;
+        return ApiResponseClass::sendResponse(
+            new TopicResourse($updatedTopic), 'Topic updated successfully',200
+        );
     }
 }
