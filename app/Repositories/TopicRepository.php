@@ -29,6 +29,7 @@ class TopicRepository implements TopicRepositoryInterface
     {
         $topic->update($data);
         $topic->categories()->sync($data['category_ids']);
-        return $topic->fresh();
+        
+        return $topic;
     }
 }

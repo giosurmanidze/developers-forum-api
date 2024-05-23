@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\TopicRepositoryInterface;
+use App\Http\Requests\StoreTopicRequest;
+use App\Http\Requests\UpdateTopicRequest;
 use App\Http\Resources\TopicResourse;
 use App\Models\Topic;
 use Illuminate\Http\Request;
@@ -31,17 +33,19 @@ class TopicController extends Controller
         return new TopicResourse($topic);
     }
 
-    public function store (Request $request)
+    public function store (StoreTopicRequest $request)
     {
-        $topic = $this->topicRepository->store($request->all());
+        $validatedData = $request->validated();
+        $storedTopic = $this->topicRepository->store($validatedData);
 
-        return $topic;
+        return $storedTopic;
     }
 
-    public function update(Request $request, Topic $topic)
+    public function update(UpdateTopicRequest $request, Topic $topic)
     {
-        $topic = $this->topicRepository->update($request->all(), $topic);
+        $validatedData = $request->validated();
+        $updatedTopic = $this->topicRepository->update($validatedData, $topic);
 
-        return $topic;
+        return $updatedTopic;
     }
 }
