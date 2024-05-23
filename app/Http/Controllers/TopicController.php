@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Contracts\TopicRepositoryInterface;
 use App\Http\Resources\TopicResourse;
+use App\Models\Topic;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -33,6 +34,13 @@ class TopicController extends Controller
     public function store (Request $request)
     {
         $topic = $this->topicRepository->store($request->all());
+
+        return $topic;
+    }
+
+    public function update(Request $request, Topic $topic)
+    {
+        $topic = $this->topicRepository->update($request->all(), $topic);
 
         return $topic;
     }
