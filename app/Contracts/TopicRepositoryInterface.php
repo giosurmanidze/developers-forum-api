@@ -10,4 +10,6 @@ interface TopicRepositoryInterface
 {
     public function getAll(): Collection;
     public function getById($id): ?Topic;
+    public function store($data): ?Topic;
+
 }

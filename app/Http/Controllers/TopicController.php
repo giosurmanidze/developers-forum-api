@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Contracts\TopicRepositoryInterface;
 use App\Http\Resources\TopicResourse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class TopicController extends Controller
@@ -14,7 +15,6 @@ class TopicController extends Controller
     {
         $this->topicRepository = $topicRepository;
     }
-
 
     public function index(): JsonResource
     {
@@ -28,5 +28,12 @@ class TopicController extends Controller
         $topic = $this->topicRepository->getById($id);
 
         return new TopicResourse($topic);
+    }
+
+    public function store (Request $request)
+    {
+        $topic = $this->topicRepository->store($request->all());
+
+        return $topic;
     }
 }

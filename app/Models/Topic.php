@@ -12,6 +12,13 @@ class Topic extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'title', 
+        'content', 
+        'user_id', 
+        'views_count', 
+        'replies_count'
+    ];
 
     public function comments(): HasMany
     {
