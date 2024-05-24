@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Contracts\AuthRepositoryInterface;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class AuthRepository implements AuthRepositoryInterface
 {
@@ -11,5 +12,14 @@ class AuthRepository implements AuthRepositoryInterface
     {
         $user = User::create($data);
         return $user;
+    }
+
+    public function login(array $credentials): ?User
+    {
+        if (!Auth::attempt($credentials)) {
+            return null;
+        }
+
+        return Auth::user();
     }
 }

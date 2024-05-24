@@ -7,4 +7,5 @@ use App\Models\User;
 interface AuthRepositoryInterface
 {
     public function register($data): ?User;
+    public function login(array $credentials): ?User;
 }
