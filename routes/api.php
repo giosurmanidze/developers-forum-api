@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TopicController;
 use Illuminate\Support\Facades\Route;
 
@@ -11,3 +12,5 @@ Route::group(['middleware' => ['api', 'auth:api']], function () {
     Route::patch('/topics/{topic}', [TopicController::class, 'update']);
 
 });
+
+Route::post('register', [AuthController::class, 'register']);
