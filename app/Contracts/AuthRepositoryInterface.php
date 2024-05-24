@@ -8,4 +8,6 @@ interface AuthRepositoryInterface
 {
     public function register($data): ?User;
     public function login(array $credentials): ?User;
+    public function logout(): bool;
+
 }

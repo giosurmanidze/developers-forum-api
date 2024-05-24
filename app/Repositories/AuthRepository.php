@@ -22,4 +22,10 @@ class AuthRepository implements AuthRepositoryInterface
 
         return Auth::user();
     }
+
+    public function logout(): bool
+    {
+        auth()->logout();
+        return true;
+    }
 }
