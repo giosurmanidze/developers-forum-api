@@ -8,9 +8,9 @@ use App\Http\Requests\StoreTopicRequest;
 use App\Http\Requests\UpdateTopicRequest;
 use App\Http\Resources\TopicResourse;
 use App\Models\Topic;
-use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Http\Response;
+
 
 class TopicController extends Controller
 {
@@ -35,7 +35,7 @@ class TopicController extends Controller
         return new TopicResourse($topic);
     }
 
-    public function store (StoreTopicRequest $request)
+    public function store (StoreTopicRequest $request): JsonResponse
     {
         $validatedData = $request->validated();
         $storedTopic = $this->topicRepository->store($validatedData);
@@ -45,7 +45,7 @@ class TopicController extends Controller
         );
     }
 
-    public function update(UpdateTopicRequest $request, Topic $topic)
+    public function update(UpdateTopicRequest $request, Topic $topic): JsonResponse
     {
         $validatedData = $request->validated();
         $updatedTopic = $this->topicRepository->update($validatedData, $topic);

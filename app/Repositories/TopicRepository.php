@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Repositories;
+
 use App\Contracts\TopicRepositoryInterface;
 use App\Models\Topic;
 use Illuminate\Database\Eloquent\Collection;
