@@ -14,7 +14,6 @@ Route::group(['middleware' => ['api', 'auth:api']], function () {
 });
 Route::get('/topics', [TopicController::class, 'index']);
 
-
 Route::get('/categories', [CategoryController::class, 'index']);
 
 Route::post('/register', [AuthController::class, 'register']);

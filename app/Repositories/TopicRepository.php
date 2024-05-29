@@ -10,9 +10,9 @@ class TopicRepository implements TopicRepositoryInterface
 {
     public function getAll() : Collection
     {
-        return Topic::all();
+        return Topic::with(['user','categories'])->get();
     }
-
+    
     public function getById($id): ?Topic
     {
         return Topic::findOrFail($id);

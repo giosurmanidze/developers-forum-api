@@ -3,9 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
@@ -13,6 +12,6 @@ class Category extends Model
 
     public function topics(): BelongsToMany
     {
-        return $this->belongsToMany(Topic::class, 'category_topics', 'topic_id', 'category_id');
+        return $this->belongsToMany(Topic::class, 'category_topic', 'topic_id', 'category_id');
     }
 }

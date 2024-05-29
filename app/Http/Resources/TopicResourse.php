@@ -21,6 +21,8 @@ class TopicResourse extends JsonResource
             'views_count'=> $this->views_count,
             'replies_count'=> $this->replies_count,
             'created_at'=> $this->created_at,
+            'user' => new UserResource($this->user),
+            'categories' => CategoryResource::collection($this->categories)
         ];
     }
 }
