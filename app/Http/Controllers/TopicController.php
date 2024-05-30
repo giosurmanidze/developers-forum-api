@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Classes\ApiResponseClass;
 use App\Contracts\TopicRepositoryInterface;
 use App\Http\Requests\StoreTopicRequest;
+use App\Http\Requests\TopicIndexRequest;
 use App\Http\Requests\UpdateTopicRequest;
 use App\Http\Resources\TopicResourse;
 use App\Models\Topic;
@@ -22,9 +23,10 @@ class TopicController extends Controller
         $this->topicRepository = $topicRepository;
     }
 
-    public function index(Request $request): JsonResource
+    public function index(TopicIndexRequest $request): JsonResource
     {
-        $topics = $this->topicRepository->getAll($request->input('limit'));
+        $limit = $request->input('limit');
+        $topics = $this->topicRepository->getAll($limit);
 
         return TopicResourse::collection($topics);
     }
