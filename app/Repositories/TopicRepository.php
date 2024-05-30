@@ -10,8 +10,11 @@ class TopicRepository implements TopicRepositoryInterface
 {
     public function getAll() : Collection
     {
-        return Topic::with(['user','categories'])->get();
+        return Topic::with(['user', 'categories'])
+                    ->orderBy('created_at', 'asc') 
+                    ->get();
     }
+    
     
     public function getById($id): ?Topic
     {
