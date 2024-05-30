@@ -8,12 +8,18 @@ use Illuminate\Database\Eloquent\Collection;
 
 class TopicRepository implements TopicRepositoryInterface
 {
-    public function getAll() : Collection
+    public function getAll($limit = null): Collection
     {
-        return Topic::with(['user', 'categories'])
-                    ->orderBy('created_at', 'asc') 
-                    ->get();
+        
+        $query = Topic::with(['user', 'categories'])->orderBy('created_at', 'asc');
+        
+        if ($limit !== null) {
+            $query->limit($limit);
+        }
+        
+        return $query->get();
     }
+    
     
     
     public function getById($id): ?Topic

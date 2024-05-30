@@ -9,6 +9,7 @@ use App\Http\Requests\UpdateTopicRequest;
 use App\Http\Resources\TopicResourse;
 use App\Models\Topic;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 
@@ -21,9 +22,9 @@ class TopicController extends Controller
         $this->topicRepository = $topicRepository;
     }
 
-    public function index(): JsonResource
+    public function index(Request $request): JsonResource
     {
-        $topics = $this->topicRepository->getAll();
+        $topics = $this->topicRepository->getAll($request->input('limit'));
 
         return TopicResourse::collection($topics);
     }
