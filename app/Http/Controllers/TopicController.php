@@ -10,7 +10,6 @@ use App\Http\Requests\UpdateTopicRequest;
 use App\Http\Resources\TopicResourse;
 use App\Models\Topic;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 
@@ -40,9 +39,8 @@ class TopicController extends Controller
 
     public function store (StoreTopicRequest $request): JsonResponse
     {
-        $validatedData = $request->validated();
         $userId = auth()->id();
-        $storedTopic = $this->topicRepository->store($validatedData, $userId);
+        $storedTopic = $this->topicRepository->store($request->all(), $userId);
 
         return ApiResponseClass::sendResponse(
             new TopicResourse($storedTopic), 'Topic added successfully',201
@@ -51,8 +49,7 @@ class TopicController extends Controller
 
     public function update(UpdateTopicRequest $request, Topic $topic): JsonResponse
     {
-        $validatedData = $request->validated();
-        $updatedTopic = $this->topicRepository->update($validatedData, $topic);
+        $updatedTopic = $this->topicRepository->update($request->all(), $topic);
 
         return ApiResponseClass::sendResponse(
             new TopicResourse($updatedTopic), 'Topic updated successfully',200

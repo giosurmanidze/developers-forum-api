@@ -20,8 +20,7 @@ class AuthController extends Controller
 
     public function register(RegisterUserRequest $request)
     {
-        $validatedData = $request->validated();
-        $user = $this->authRepository->register($validatedData);
+        $user = $this->authRepository->register($request->all());
 
         return ApiResponseClass::sendResponse(
             new UserResource($user), "User registered successfully", 201
@@ -30,7 +29,7 @@ class AuthController extends Controller
 
     public function login(LoginUserRequest $request): JsonResponse
     {
-        $validatedData = $request->validated();
+        $validatedData = $request->all();
         $user = $this->authRepository->login($validatedData);
 
         if (!$user) {
