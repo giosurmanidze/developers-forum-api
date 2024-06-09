@@ -24,9 +24,13 @@ class TopicRepository implements TopicRepositoryInterface
         return Topic::findOrFail($id);
     }
 
-    public function store($data): ?Topic
+    public function store($data, $userId): ?Topic
     {
-        $topic = Topic::create($data);
+        $topic = Topic::create([
+           'user_id' => $userId,
+           'title' => $data['title'],
+           'content' => $data['content']
+        ]);
         $topic->categories()->attach($data['category_ids']);
 
         return $topic;

@@ -41,7 +41,8 @@ class TopicController extends Controller
     public function store (StoreTopicRequest $request): JsonResponse
     {
         $validatedData = $request->validated();
-        $storedTopic = $this->topicRepository->store($validatedData);
+        $userId = auth()->id();
+        $storedTopic = $this->topicRepository->store($validatedData, $userId);
 
         return ApiResponseClass::sendResponse(
             new TopicResourse($storedTopic), 'Topic added successfully',201

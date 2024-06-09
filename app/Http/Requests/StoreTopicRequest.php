@@ -25,7 +25,6 @@ class StoreTopicRequest extends FormRequest
             'title' => ['required', 'min:8', 'max:50'],
             'content' => ['required', 'min:20', 'max:200'],
             'category_ids' => ['required', 'array'],
-            'user_id' => ['required', 'exists:users,id']
         ];
     }
 }

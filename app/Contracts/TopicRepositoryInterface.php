@@ -9,7 +9,7 @@ interface TopicRepositoryInterface
 {
     public function getAll(): Collection;
     public function getById($id): ?Topic;
-    public function store($data): ?Topic;
+    public function store($data, $userId): ?Topic;
     public function update($data, Topic $topic): ?Topic;
 
 }
