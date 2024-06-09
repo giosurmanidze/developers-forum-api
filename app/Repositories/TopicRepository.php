@@ -10,8 +10,7 @@ class TopicRepository implements TopicRepositoryInterface
 {
     public function getAll($limit = null): Collection
     {
-        
-        $query = Topic::with(['user', 'categories'])->orderBy('created_at', 'asc');
+        $query = Topic::with(['user', 'categories'])->latest();
         
         if ($limit !== null) {
             $query->limit($limit);
@@ -19,7 +18,6 @@ class TopicRepository implements TopicRepositoryInterface
         
         return $query->get();
     }
-    
     
     public function getById($id): ?Topic
     {
