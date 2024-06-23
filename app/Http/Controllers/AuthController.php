@@ -11,7 +11,7 @@ use Illuminate\Http\JsonResponse;
 
 class AuthController extends Controller
 {
-    private AuthRepositoryInterface $authRepository;
+    protected AuthRepositoryInterface $authRepository;
 
     public function __construct(AuthRepositoryInterface $authRepository)
     {
@@ -20,7 +20,8 @@ class AuthController extends Controller
 
     public function register(RegisterUserRequest $request)
     {
-        $user = $this->authRepository->register($request->all());
+        $validatedData = $request->validated();
+        $user = $this->authRepository->register($validatedData);
 
         return ApiResponseClass::sendResponse(
             new UserResource($user), "User registered successfully", 201
@@ -29,7 +30,7 @@ class AuthController extends Controller
 
     public function login(LoginUserRequest $request): JsonResponse
     {
-        $validatedData = $request->all();
+        $validatedData = $request->validated();
         $user = $this->authRepository->login($validatedData);
 
         if (!$user) {

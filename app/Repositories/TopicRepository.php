@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 class TopicRepository implements TopicRepositoryInterface
 {
-    public function getAll($limit = null): Collection
+    public function getAll(string $limit): Collection
     {
         $query = Topic::with(['user', 'categories'])->latest();
         
@@ -19,12 +19,12 @@ class TopicRepository implements TopicRepositoryInterface
         return $query->get();
     }
     
-    public function getById($id): ?Topic
+    public function getById(int $id): ?Topic
     {
         return Topic::findOrFail($id);
     }
 
-    public function store($data, $userId): ?Topic
+    public function store(array $data, int $userId): ?Topic
     {
         $topic = Topic::create([
            'user_id' => $userId,
@@ -36,7 +36,7 @@ class TopicRepository implements TopicRepositoryInterface
         return $topic;
     }   
 
-    public function update($data, Topic $topic): ?Topic
+    public function update(array $data, Topic $topic): ?Topic
     {
         $topic->update($data);
         $topic->categories()->sync($data['category_ids']);

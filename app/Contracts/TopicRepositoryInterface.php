@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Collection;
 
 interface TopicRepositoryInterface
 {
-    public function getAll(): Collection;
-    public function getById($id): ?Topic;
-    public function store($data, $userId): ?Topic;
-    public function update($data, Topic $topic): ?Topic;
+    public function getAll(string $limit): Collection;
+    public function getById(int $id): ?Topic;
+    public function store(array $data, int $userId): ?Topic;
+    public function update(array $data, Topic $topic): ?Topic;
 
 }

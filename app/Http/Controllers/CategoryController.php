@@ -8,7 +8,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class CategoryController extends Controller
 {
-   private CategoryRepositoryInterface $categoryRepository;
+  protected CategoryRepositoryInterface $categoryRepository;
 
    public function __construct(CategoryRepositoryInterface $categoryRepository)
    {
