@@ -24,7 +24,7 @@ class TopicRepository implements TopicRepositoryInterface
         return Topic::findOrFail($id);
     }
 
-    public function store(array $data, int $userId): ?Topic
+    public function store(array $data, int $userId): Topic
     {
         $topic = Topic::create([
            'user_id' => $userId,
@@ -36,11 +36,17 @@ class TopicRepository implements TopicRepositoryInterface
         return $topic;
     }   
 
-    public function update(array $data, Topic $topic): ?Topic
+    public function update(array $data, Topic $topic): Topic
     {
         $topic->update($data);
         $topic->categories()->sync($data['category_ids']);
         
+        return $topic;
+    }
+
+    public function delete(Topic $topic): Topic
+    {
+        $topic->delete();
         return $topic;
     }
 }

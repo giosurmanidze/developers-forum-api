@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Topic;
+use Illuminate\Http\JsonResponse;
+use App\Http\Resources\TopicResourse;
+use App\Services\TopicService;
 use App\Classes\ApiResponseClass;
-use App\Contracts\topicServiceInterface;
+use App\Http\Requests\UpdateTopicRequest;
 use App\Http\Requests\StoreTopicRequest;
 use App\Http\Requests\TopicIndexRequest;
-use App\Http\Requests\UpdateTopicRequest;
-use App\Http\Resources\TopicResourse;
-use App\Models\Topic;
-use App\TopicService;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 
@@ -27,14 +26,12 @@ class TopicController extends Controller
     {
         $limit = $request->input('limit');
         $topics = $this->topicService->getAllTopics($limit);
-
         return TopicResourse::collection($topics);
     }
 
     public function show(int $id): JsonResource
     {
         $topic = $this->topicService->getTopicById($id);
-
         return new TopicResourse($topic);
     }
 
@@ -56,6 +53,14 @@ class TopicController extends Controller
 
         return ApiResponseClass::sendResponse(
             new TopicResourse($updatedTopic), 'Topic updated successfully',200
+        );
+    }
+
+    public function delete(Topic $topic): JsonResponse
+    {
+        $deletedTopic = $this->topicService->deleteTopic($topic);
+        return ApiResponseClass::sendResponse(
+            new TopicResourse($deletedTopic), 'Topic deleted successfully',200
         );
     }
 }
